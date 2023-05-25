@@ -1,0 +1,9 @@
+.form-floating >>> label{
+  color: #000;
+}
+
+.list-group,
+.list-group-item{
+  background-color: inherit;
+  color: inherit
+}

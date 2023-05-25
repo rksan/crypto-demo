@@ -1,0 +1,162 @@
+<form class="needs-validation" novalidate>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-floating position-relative">
+        <select
+          id="input-algorithm"
+          class="form-select"
+          v-model="model.formData.algorithm"
+        >
+          <template v-for="(algorithm,idx) in model.algorithms" :key="idx">
+            <option :value="algorithm">{{algorithm}}</option>
+          </template>
+        </select>
+        <label for="input-algorithm" class="from-label"
+          >Select algorithm ...</label
+        >
+        <div class="invalid-tooltip">Choose an algorithm from the list</div>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="position-relative">
+        <div class="input-group">
+          <div class="form-floating position-relative">
+            <input
+              type="text"
+              id="input-password"
+              class="form-control"
+              placeholder="password"
+              required
+              v-model="model.formData.password"
+            />
+            <label for="input-password">Enter password</label>
+            <div class="invalid-tooltip">
+              Enter your password or press the button below to generate a random
+              password
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            @click="doRandomPassword"
+          >
+            <i class="bi bi-shuffle"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <div class="form-floating">
+      <textarea
+        id="input-plain-text"
+        class="form-control"
+        placeholder="Plain text..."
+        v-model="model.formData.plainText.data"
+      ></textarea>
+      <label for="input-plain-text" class="form-label">Add Plain text...</label>
+    </div>
+    <div class="text-danger" v-show="model.formData.plainText.error">
+      {{model.formData.plainText.error}}
+    </div>
+
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item">
+        <div class="row g-2">
+          <div class="col-auto">
+            <label for="input-plain-text-encode">encode : </label>
+          </div>
+          <div class="col-auto">
+            <select
+              id="input-plain-text-encode"
+              class="form-select form-select-sm"
+              v-model="model.formData.plainText.encode"
+              required
+            >
+              <template v-for="(encoding,idx) in model.encodings" :key="idx">
+                <option :value="encoding">{{encoding}}</option>
+              </template>
+            </select>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <span>length : </span
+        ><span>{{model.formData.plainText.data.length}}</span>
+      </li>
+      <li class="list-group-item">
+        <span>size : </span>
+        <span>{{ compDataSize(model.formData.plainText) }}</span>
+        <span> B</span>
+      </li>
+
+      <li class="list-group-item">
+        <button type="button" class="btn btn-primary" @click="doEncryption">
+          <i class="bi bi-arrow-bar-down"></i> do encrypt
+        </button>
+      </li>
+      <li class="list-group-item">
+        <button type="button" class="btn btn-warning" @click="doClearPlainText">
+          clear
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="mb-4">
+    <div class="form-floating">
+      <textarea
+        id="input-encrypted"
+        class="form-control"
+        placeholder="Encrypted..."
+        v-model="model.formData.encrypted.data"
+      ></textarea>
+      <label for="input-encrypted" class="form-label">Encrypted</label>
+    </div>
+
+    <div class="text-danger" v-show="model.formData.encrypted.error">
+      {{model.formData.encrypted.error}}
+    </div>
+
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item">
+        <div class="row g-2">
+          <div class="col-auto">
+            <label for="input-encrypted-encode">encode : </label>
+          </div>
+          <div class="col-auto">
+            <select
+              id="input-encrypted-encode"
+              class="form-select form-select-sm"
+              placeholder="Encrypted encode"
+              required
+              v-model="model.formData.encrypted.encode"
+              @change="doChangeEncryptedEncode"
+            >
+              <template v-for="(encoding,idx) in model.encodings" :key="idx">
+                <option :value="encoding">{{encoding}}</option>
+              </template>
+            </select>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <span>length : </span>
+        <span>{{model.formData.encrypted.data.length}}</span>
+      </li>
+      <li class="list-group-item">
+        <span>size : </span>
+        <span>{{ compDataSize(model.formData.encrypted) }}</span>
+        <span> B</span>
+      </li>
+
+      <li class="list-group-item">
+        <button type="button" class="btn btn-success" @click="doDecryption">
+          <i class="bi bi-arrow-bar-up"></i> do plain text
+        </button>
+      </li>
+    </ul>
+  </div>
+</form>

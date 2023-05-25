@@ -1,6 +1,6 @@
 {
   "name": "crypto-demo",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.10.5",
     "core-js": "^3.8.3",
     "crypto-browserify": "^3.12.0",
+    "stream-browserify": "^3.0.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {
